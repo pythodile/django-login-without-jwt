@@ -1,0 +1,26 @@
+from django.contrib.auth import authenticate
+from rest_framework.response import Response
+from rest_framework.views import APIView
+from rest_framework import status
+
+# Create your views here.
+class LoginAPIView(APIView):
+    
+    def post(self,request):
+        
+        username = request.data.get('username',None)
+        password =  request.data.get('password',None)
+
+        user = authenticate(username = username,password = password)
+        if user is not None:
+            return Response({'Message':'Logged In'})
+        else:
+            return Response({'Message':'Invalid username and password combination'})
+
+    
+
+
+
+
+
+

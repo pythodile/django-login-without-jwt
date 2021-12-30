@@ -1,4 +1,4 @@
-from django.contrib.auth import authenticate
+from django.contrib.auth import authenticate, login
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework import status
@@ -13,6 +13,7 @@ class LoginAPIView(APIView):
 
         user = authenticate(username = username,password = password)
         if user is not None:
+            login(request,user)
             return Response({'Message':'Logged In'},status =status.HTTP_200_OK)
         else:
             return Response({'Message':'Invalid username and password combination'},status = status.HTTP_401_UNAUTHORIZED)
